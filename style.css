@@ -1,0 +1,23 @@
+
+#info-box {
+  color: #FFF;
+  background-color: #000;
+  width: 280px;
+  height: 280px;
+  padding: 20px;
+  border: 1px solid #FFF;
+  border-radius: 1em 0 0 0;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+#close-box {
+  color: #FFF;
+  background-color: #000;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+}
