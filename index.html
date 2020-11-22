@@ -8,13 +8,20 @@
     crossorigin="anonymous">
   </script>
   <script src="Star.js"></script>
+  <script src="Planet.js"></script>
+  <script src="functions.js"></script>
   <script src="index.js"></script>
   <link rel="stylesheet" href="style.css">
   <title>Universe</title>
 </head>
 <body style="margin: 0; overflow: hidden;">
-  <div id="info-box" style="display: block;">
+  <div id="info-box" style="display: none;">
     <button id="close-box" onclick="closeInfoBox()">X</button>
+    <span id="star-name"></span>
+    <br>
+    <span id="star-radius"></span>
+    <br>
+    <span id="planet-count"></span>
   </div>
 </body>
 </html>
