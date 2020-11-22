@@ -59,7 +59,9 @@ function mouseClicked(){
       sunSelection.x = star.x;
       sunSelection.y = star.y;
       sunSelection.r = star.r;
+      break;
     }
+    Object.keys(sunSelection).forEach(el => sunSelection[el] = null);
   }
 }
 
