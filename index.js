@@ -43,7 +43,7 @@ function overStar(){
     if (distance < star.r){
       fill(255);
       textSize(24);
-      text(star.name, mouseX, mouseY);
+      text(star.name, mouseX + 10, mouseY - 10);
       break;
     }
   }
