@@ -1,7 +1,7 @@
 let density = 0.0002;
 let stars = [];
 
-sunSelection = {"x": null, "y": null, "r": null};
+sunSelection = {"x": null, "y": null};
 
 function setup(){
   createCanvas(windowWidth, windowHeight);
@@ -15,7 +15,7 @@ function draw(){
   
   const exists = Object.values(sunSelection).every(x => (x !== null));
   if (exists){
-    drawSelection(sunSelection.x, sunSelection.y, sunSelection.r);
+    drawSelection(sunSelection.x, sunSelection.y);
   }
 }
 
@@ -50,59 +50,76 @@ function overStar(){
 }
 
 function mouseClicked(){
-  info = document.getElementById("info-box");
   for (star of stars){
     distance = dist(mouseX, mouseY, star.x, star.y);
     if (distance < star.r){
-      info.style.display = "block";
+      toggleDiv("list", "OFF");
+      toggleDiv("info-box", "ON");
+      toggleDiv("info", "ON");
       insertData(star);
       sunSelection.x = star.x;
       sunSelection.y = star.y;
-      sunSelection.r = star.r;
       break;
     }
     Object.keys(sunSelection).forEach(el => sunSelection[el] = null);
   }
 }
 
-function closeInfoBox(){
-  info = document.getElementById("info-box");
-  info.style.display = "none";
+function toggleDiv(id, toggle){
+  div = document.getElementById(id);
+  if (toggle.toUpperCase() === "ON"){
+    div.style.display = "block";
+  } else if (toggle.toUpperCase() === "OFF"){
+    div.style.display = "none";
+  }
 }
 
-function insertData(star){
-  document.getElementById("star-name").innerHTML = "Name: " + star.name;
-  document.getElementById("star-radius").innerHTML = "Radius: " + star.mesaR + " km";
-  document.getElementById("planet-count").innerHTML = "Planets: " + star.planets.length;
+function insertData(body){
+  document.getElementById("celestial-body-type").innerHTML = `Type: ${body.constructor.name}`;
+  document.getElementById("celestial-body-name").innerHTML = `Name: ${body.name}`;
+  document.getElementById("celestial-body-radius").innerHTML = `Radius: ${body.mesaR} km`;
+  document.getElementById("celestial-body-satellite-count").innerHTML = `${body.satellitesType}: ${body.satellites.length}`;
+  document.getElementById("celestial-body-satellite-count").addEventListener("click", () => showSatellites(body), false);
 }
 
-function drawSelection(x, y, r){
+function showSatellites(body){
+  toggleDiv("info", "OFF");
+  list = document.getElementById("list");
+  list.style.display = "block";
+  list.innerHTML = `<span class="type-name">${body.satellitesType}</span>`;
+  for (sat of body.satellites){
+    list.innerHTML += `<span>${sat.name}</span>`;
+  }
+}
+
+function drawSelection(x, y){
   smallVal = 1.4;
   bigVal = 5;
+  let size = 10;
   noStroke();
   fill(255, 0, 0);
   beginShape();
-    vertex(x - r, y - r);
-    vertex(x - r, y - r/bigVal);
-    vertex(x - r*smallVal, y - r*smallVal);
-    vertex(x - r/bigVal, y - r);
+    vertex(x - size, y - size);
+    vertex(x - size, y - size/bigVal);
+    vertex(x - size*smallVal, y - size*smallVal);
+    vertex(x - size/bigVal, y - size);
   endShape();
   beginShape();
-    vertex(x + r, y - r);
-    vertex(x + r, y - r/bigVal);
-    vertex(x + r*smallVal, y - r*smallVal);
-    vertex(x + r/bigVal, y - r);
+    vertex(x + size, y - size);
+    vertex(x + size, y - size/bigVal);
+    vertex(x + size*smallVal, y - size*smallVal);
+    vertex(x + size/bigVal, y - size);
   endShape();
   beginShape();
-    vertex(x + r, y + r);
-    vertex(x + r, y + r/bigVal);
-    vertex(x + r*smallVal, y + r*smallVal);
-    vertex(x + r/bigVal, y + r);
+    vertex(x + size, y + size);
+    vertex(x + size, y + size/bigVal);
+    vertex(x + size*smallVal, y + size*smallVal);
+    vertex(x + size/bigVal, y + size);
   endShape();
   beginShape();
-    vertex(x - r, y + r);
-    vertex(x - r, y + r/bigVal);
-    vertex(x - r*smallVal, y + r*smallVal);
-    vertex(x - r/bigVal, y + r);
+    vertex(x - size, y + size);
+    vertex(x - size, y + size/bigVal);
+    vertex(x - size*smallVal, y + size*smallVal);
+    vertex(x - size/bigVal, y + size);
   endShape();
 }

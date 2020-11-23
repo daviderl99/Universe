@@ -3,25 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js" 
-    integrity="sha512-rMaqGbYalDaQz0lWNF2L8DHPtf4NW+gSZomExS0LcsNyRS4Rmj21+dt97XfXCZE/E569eX72Bh//Jt1EpStgiA==" 
-    crossorigin="anonymous">
-  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script>
   <script src="Star.js" defer></script>
   <script src="Planet.js" defer></script>
+  <script src="Moon.js" defer></script>
   <script src="functions.js" defer></script>
   <script src="index.js" defer></script>
+  <link rel="shortcut icon" href="solsys.png" type="image/x-icon">
   <link rel="stylesheet" href="style.css">
   <title>Universe</title>
 </head>
 <body style="margin: 0; overflow: hidden;">
   <div id="info-box" style="display: none;">
     <button id="close-box" onclick="closeInfoBox()">X</button>
-    <span id="star-name"></span>
-    <br>
-    <span id="star-radius"></span>
-    <br>
-    <span id="planet-count"></span>
+    <div id="info" style="display: none;">
+      <span id="celestial-body-type"></span>
+      <span id="celestial-body-name"></span>
+      <span id="celestial-body-radius"></span>
+      <span id="celestial-body-satellite-count"></span>
+    </div>
+    <div id="list" style="display: none;"></div>
+    <div id="canvas-2"></div>
   </div>
 </body>
 </html>

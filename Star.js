@@ -7,7 +7,8 @@ class Star{
     this.mesaR = genMesaRadius(this.r);
     this.color = genColor();
     this.name = genName(4, 10);
-    this.planets = genPlanets(0, 10);
+    this.satellites = genPlanets(0, 10);
+    this.satellitesType = "Planets";
   }
 
   show(){

@@ -7,7 +7,7 @@ function genRadius(min, max){
 function genMesaRadius(radius){
   radii = [{"min": 50, "max": 200}, {"min": 400, "max": 1000}, {"min": 50000, "max": 20000}, {"min": 40000, "max": 200000}, 
            {"min": 400000, "max": 800000}, {"min": 1000000, "max": 5000000}, {"min": 10000000, "max": 50000000}, {"min": 50000000, "max": 200000000}, 
-           {"min": 200000000, "max": 500000000}, {"min": 800000000, "max": 1000000000}];
+           {"min": 200000000, "max": 500000000}, {"min": 800000000, "max": 1200000000}];
 
   return randomInt(radii[radius-1].min, radii[radius-1].max).toLocaleString();
 }
@@ -48,6 +48,16 @@ function genPlanets(min, max){
     planets.push(planet);
   }
   return planets;
+}
+
+function genMoons(min, max){
+  moons = [];
+  moonCount = randomBiasInt(min, max);
+  for (let i = 0; i < moonCount; i++){
+    moon = new Moon();
+    moons.push(moon);
+  }
+  return moons;
 }
 
 function randomInt(min, max) {
