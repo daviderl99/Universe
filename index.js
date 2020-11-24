@@ -1,10 +1,11 @@
 let density = 0.0002;
 let stars = [];
-
 sunSelection = {"x": null, "y": null};
+// let fg;
 
 function setup(){
   createCanvas(windowWidth, windowHeight);
+  // fg = createGraphics(windowWidth, windowHeight);
   createStars();
 }
   
@@ -12,6 +13,8 @@ function draw(){
   background(0);  
   drawStars();
   overStar();
+  // image(fg, 0, 0);
+  // fg.clear();
   
   const exists = Object.values(sunSelection).every(x => (x !== null));
   if (exists){
@@ -53,9 +56,6 @@ function mouseClicked(){
   for (star of stars){
     distance = dist(mouseX, mouseY, star.x, star.y);
     if (distance < star.r){
-      toggleDiv("list", "OFF");
-      toggleDiv("info-box", "ON");
-      toggleDiv("info", "ON");
       insertData(star);
       sunSelection.x = star.x;
       sunSelection.y = star.y;
@@ -66,29 +66,38 @@ function mouseClicked(){
 }
 
 function toggleDiv(id, toggle){
-  div = document.getElementById(id);
+  div = $("#" + id);
   if (toggle.toUpperCase() === "ON"){
-    div.style.display = "block";
+    div.css("display", "block");
   } else if (toggle.toUpperCase() === "OFF"){
-    div.style.display = "none";
+    div.css("display", "none");
   }
 }
 
 function insertData(body){
-  document.getElementById("celestial-body-type").innerHTML = `Type: ${body.constructor.name}`;
-  document.getElementById("celestial-body-name").innerHTML = `Name: ${body.name}`;
-  document.getElementById("celestial-body-radius").innerHTML = `Radius: ${body.mesaR} km`;
-  document.getElementById("celestial-body-satellite-count").innerHTML = `${body.satellitesType}: ${body.satellites.length}`;
-  document.getElementById("celestial-body-satellite-count").addEventListener("click", () => showSatellites(body), false);
+  toggleDiv("list", "OFF");
+  toggleDiv("info-box", "ON");
+  toggleDiv("info", "ON");
+  if (body === undefined) return;
+
+  $("#celestial-body-type").html(`Type: ${body.constructor.name}`);
+  $("#celestial-body-name").html(`Name: ${body.name}`);
+  $("#celestial-body-radius").html(`Radius: ${body.mesaR} km`);
+  $("#celestial-body-satellite-count").html(`${body.satellitesType}: ${body.satellites.length}`);
+  $("#celestial-body-satellite-count").click(() => showSatellites(body));
 }
+
+// $(x).data('options', obj);
+// $(x).data('options');
 
 function showSatellites(body){
   toggleDiv("info", "OFF");
-  list = document.getElementById("list");
-  list.style.display = "block";
-  list.innerHTML = `<span class="type-name">${body.satellitesType}</span>`;
+  list = $("#list");
+  list.css("display", "block");
+  list.html(`<button id="back-btn" onclick="insertData()">&lt;&lt;</button>`);
+  list.append(`<span class="type-name">${body.satellitesType}</span>`);
   for (sat of body.satellites){
-    list.innerHTML += `<span>${sat.name}</span>`;
+    list.append(`<span>${sat.name}</span>`);
   }
 }
 
@@ -123,3 +132,18 @@ function drawSelection(x, y){
     vertex(x - size/bigVal, y + size);
   endShape();
 }
+
+// let drawingDistance = false;
+// let mousePos = {};
+// function mouseDragged(){
+//   if (!drawingDistance) {
+//     mousePos.x1 = mouseX;
+//     mousePos.y1 = mouseY;
+//     drawingDistance = true;
+//   } else {
+//     mousePos.x2 = mouseX;
+//     mousePos.y2 = mouseY;
+//     fg.stroke(255, 50, 0);
+//     fg.line(mousePos.x1, mousePos.y1, mousePos.x2, mousePos.y2);
+//   }
+// }

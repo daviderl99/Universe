@@ -15,7 +15,7 @@
   overflow: auto;
 }
 
-#close-box {
+#close-box-btn {
   color: #FFF;
   background-color: #000;
   border: none;
@@ -23,6 +23,16 @@
   cursor: pointer;
   position: absolute;
   right: 10px;
+}
+
+#back-btn {
+  color: #FFF;
+  background-color: #000;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  position: absolute;
+  right: 30px;
 }
 
 span {
