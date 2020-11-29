@@ -59,7 +59,7 @@ function showName(){
 
 function mouseClicked(){
   if (star = overStar()){
-    insertData(star);
+    insertObject(star);
     sunSelection.x = star.x;
     sunSelection.y = star.y;
   }
@@ -74,7 +74,7 @@ function toggleDiv(id, toggle){
   }
 }
 
-function insertData(body){
+function insertObject(body){
   toggleDiv("list", "OFF");
   toggleDiv("info-box", "ON");
   toggleDiv("info", "ON");
