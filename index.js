@@ -1,6 +1,9 @@
-let density = 0.0002;
+const DENSITY = 0.0002;
 let stars = [];
-sunSelection = {"x": null, "y": null};
+let sunSelection = {"x": null, "y": null};
+let lastSelectedStar = {};
+let lastSelectedPlanet = {};
+let lastSelectedMoon = {};
 // let fg;
 
 function setup(){
@@ -16,10 +19,7 @@ function draw(){
   // image(fg, 0, 0);
   // fg.clear();
   
-  const exists = Object.values(sunSelection).every(x => (x !== null));
-  if (exists){
-    drawSelection(sunSelection.x, sunSelection.y);
-  }
+  drawSelection(sunSelection.x, sunSelection.y);
 }
 
 function drawStars(){
@@ -32,7 +32,7 @@ function createStars(){
   for (let x = 0; x < width; x++) {
     for (let y = 0; y < height; y++) {
       rnd = Math.random();
-      if (rnd < density){
+      if (rnd < DENSITY){
         star = new Star(x, y);
         stars.push(star);
       }
@@ -44,24 +44,24 @@ function overStar(){
   for (star of stars){
     distance = dist(mouseX, mouseY, star.x, star.y);
     if (distance < star.r){
-      fill(255);
-      textSize(24);
-      text(star.name, mouseX + 10, mouseY - 10);
-      break;
+      return star;
     }
   }
 }
 
+function showName(){
+  if (star = overStar()){
+    fill(255);
+    textSize(24);
+    text(star.name, mouseX + 10, mouseY - 10);
+  }
+}
+
 function mouseClicked(){
-  for (star of stars){
-    distance = dist(mouseX, mouseY, star.x, star.y);
-    if (distance < star.r){
-      insertData(star);
-      sunSelection.x = star.x;
-      sunSelection.y = star.y;
-      break;
-    }
-    Object.keys(sunSelection).forEach(el => sunSelection[el] = null);
+  if (star = overStar()){
+    insertData(star);
+    sunSelection.x = star.x;
+    sunSelection.y = star.y;
   }
 }
 
@@ -87,9 +87,6 @@ function insertData(body){
   $("#celestial-body-satellite-count").click(() => showSatellites(body));
 }
 
-// $(x).data('options', obj);
-// $(x).data('options');
-
 function showSatellites(body){
   toggleDiv("info", "OFF");
   list = $("#list");
@@ -102,6 +99,7 @@ function showSatellites(body){
 }
 
 function drawSelection(x, y){
+  if (x == null || y == null) return;
   smallVal = 1.4;
   bigVal = 5;
   let size = 10;
